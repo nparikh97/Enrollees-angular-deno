@@ -1,0 +1,178 @@
+.changeCursorToPointer{
+  cursor: pointer;
+}
+a:visited{
+  color:black;
+}
+a:link {
+  color: green;
+}
+.thead-dark th{
+  background-color: #014182c7;
+  border-color: #014182c7;
+}
+.mt-4{
+  margin-top: 2rem!important;
+}
+body{
+  background-color:black;
+}
+#active.form-control{
+  width: 10%;
+  margin-left: 70px;
+}
+#inactive.form-control{
+  width: 3%;
+  /* margin-left: 70px; */
+}
+.has-error{
+  border: red;
+}
+.something ul {
+  margin: 100px;
+}
+.text-center ul .ngx-pagination {
+  padding-left: 0px !important;
+}
+.setMargin{
+  margin-left: 54.5px;
+}
+.col.mt-4 .ml-4{
+  margin-left: 3.3rem!important;
+}
+/* .try a div{
+  display:none;
+}
+.try a:hover div{
+  display:block;
+}
+.try a:hover{
+  display:block;
+} */
+.textColor{
+  color: #007bff;
+}
+a{
+  text-decoration: none;
+}
+.size{
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 3px;
+  width: 50%;
+  height: 100%;
+}
+.customizedIcon{
+  cursor: pointer;
+  font-size: 23px;
+  /* padding-left: 20px; */
+}
+.customizedIcon.xIcon{
+  margin-right: 14%;
+}
+.activeColor{
+  background-color: green;
+}
+.iconImg {
+  background-color: transparent;
+  vertical-align: middle;
+  border-style: none;
+  height: 15px;
+}
+.form-control{
+  width: 75%;
+  height: 34px;
+}
+.activeOnSmallScreenSize{
+  display: none;
+}
+strong{
+  font-weight: normal;
+}
+.displayAlinkOnSmallScreen{
+  display: none;
+}
+.setUpdateButtonMaginOnSmallScreen{
+  margin-left: 200px;
+}
+.NAStyling{
+  padding-left: 43px;
+  color:#caac4a;
+}
+
+
+/* @media queries from here */
+
+
+@media (max-width: 877px) {
+  .hideTextAtSmallScreen{
+    visibility: hidden;
+  }
+  .iconImg{
+    margin-left: 19%;
+  }
+}
+
+@media (max-width: 869px){
+  .activeOnSmallScreenSize{
+    display: table-cell;
+  }
+  .dob{
+    display: none;
+  }
+}
+
+@media(max-width:1015px){
+  .customizedIcon{
+    font-size: 20px;
+    /* padding-left: 20px; */
+  }
+  .customizedIcon.xIcon{
+    font-size: 20px;
+    margin-right: 14%;
+  }
+}
+
+@media(max-width:750px){
+  .removeActionColumnAtSmallScreen{
+    display: none;
+  }
+  .table td.removeRightPaddingOnSmallScreen,
+  .table th.removeRightPaddingOnSmallScreen,
+  .table td select{
+    padding-right: 0%;
+  }
+  .displayAlinkOnSmallScreen{
+    display: table-cell;
+  }
+  .displayTextOnLargeScreen{
+    display: none;
+  }
+}
+@media (max-width:575px){
+  #active.form-control{
+    width: 40%;
+    margin-left: 12px;
+  }
+  .setMargin{
+    margin-left: 0px;
+  }
+  .form-control{
+    width: 300px;
+  }
+  .setUpdateButtonMaginOnSmallScreen{
+    margin-left: 0px;
+  }
+  .p-5{
+    padding-left: 1%!important;
+    padding-right: 1%!important;
+  }
+  .NAStyling{
+    padding-left: 28px;
+  }
+}
+@media (max-width:640px){
+  .NAStyling{
+    padding-left: 28px;
+  }
+}

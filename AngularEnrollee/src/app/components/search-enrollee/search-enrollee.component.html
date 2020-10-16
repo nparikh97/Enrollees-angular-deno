@@ -1,0 +1,157 @@
+<!-- CSS Link -->
+<link rel="stylesheet" href="./search-enrollee.component.css">
+
+<div class="p-5">
+
+  <!-- A navbar with search option (used bootstrap) using that as a form to search an enrollee  -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark setMargin">
+
+    <form class="form-inline my-2 my-lg-0" [formGroup]="searchForm"
+    (ngSubmit)="searchEnrollees(searchForm.value.search)">
+
+    <input class="form-control mr-sm-2" type="search" id="search" name="search"
+      formControlName="search" placeholder="Search by ID" aria-label="Search"/>
+
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+
+    </form>
+
+    <div class="row float-left">
+      <div class="col col-md-5 col-sm-5 p-1">
+        <select class="browser-default custom-select" id="activeMember" name="status" (click)="activeMembers()">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
+      <!-- <div class="col-md-2 col-sm-2">
+        <button type="menu" (click)="activeMembers()" class="btn btn-outline-success" style="margin-top: 1px;">
+          Filter
+        </button>
+      </div> -->
+    </div>
+  </nav>
+
+  <!-- data is organized in the form of table -->
+  <table class="table mt-1 table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date of Birth</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="allowParticuarEnrollee; else activeMemberForm">
+      <tr>
+        <td>
+          <a class="changeCursorToPointer" (click)="pullEnrolleeAndPlaceItInForm(particularEnrollee)">
+            {{ particularEnrollee.id }}
+          </a>
+        </td>
+        <td title="{{ particularEnrollee.name }}">{{ particularEnrollee.name | titlecase }}</td>
+        <td style="padding-left: 20px;" *ngIf="particularEnrollee.dateOfBirth; else notProvided" title="{{ particularEnrollee.dateOfBirth }}">
+          {{ formatedDOB(particularEnrollee.dateOfBirth) }}
+        </td>
+
+        <ng-template #notProvided>
+          <td style="padding-left: 48px; color:#caac4a;">N/A</td>
+        </ng-template>
+
+        <td  *ngIf="particularEnrollee.active; else printNo" title="Active">
+          Active
+        </td>
+
+        <ng-template #printNo>
+          <td style="padding-left: 25px; color: #ff214e;" title="Inactive">Inactive</td>
+        </ng-template>
+      </tr>
+    </tbody>
+
+    <ng-template #activeMemberForm>
+      <tbody>
+        <tr *ngFor="let member of members | paginate: { id: 'listing_pagination',
+        itemsPerPage: 5,
+        currentPage: page,
+        totalItems: totalRecords } ">
+          <td>
+            <a class="changeCursorToPointer" (click)="pullEnrolleeAndPlaceItInForm(member)">
+              {{ member.id }}
+            </a>
+          </td>
+          <td title="{{ member.name }}">{{ member.name | titlecase }}</td>
+          <td style="padding-left: 20px;" *ngIf="member.dateOfBirth; else notProvided" title="{{ member.dateOfBirth }}">
+            {{ formatedDOB(member.dateOfBirth) }}
+          </td>
+
+        <ng-template #notProvided>
+          <td style="padding-left: 48px; color:#caac4a;">N/A</td>
+        </ng-template>
+
+        <td *ngIf="member.active; else printNo" title="Active">
+          Active
+        </td>
+
+        <ng-template #printNo>
+          <td style="color: #ff214e;" title="Inactive">Inactive</td>
+        </ng-template>
+      </tbody>
+    </ng-template>
+
+  </table>
+  <!-- <pagination-controls *ngIf="paginationToShow" class="text-center" id="listing_pagination" maxSize="5" directionLinks="true" responsive="true" (pageChange)="page = $event" style="
+  padding-left: 0px;"></pagination-controls> -->
+
+  <!-- This is a form that provides an edit option with pre-filled enrollee data after enrollee is fetched  -->
+  <div class="mt-1" *ngIf="showFormDiv">
+    <form [formGroup]= "recordForm" (ngSubmit)="submitEnrollee(recordForm.value.id,recordForm.value.name,recordForm.value.active)">
+      <div class="row form-group">
+
+        <!-- ID form -->
+        <div class="col">
+          <label for="id">ID: </label>
+          <input class="form-control" type="text" id="id" name="id" formControlName="id" placeholder="Id" disabled/>
+        </div>
+
+        <!-- Name form -->
+        <div class="col">
+          <label for="name">Name: </label>
+          <input class="form-control" type="text" id="name" name="name" formControlName="name" placeholder="Name" required [ngClass]="{'is-invalid': recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)}">
+          <!-- validating name form -->
+          <span style="color: red;" *ngIf="recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)">
+            <span *ngIf= "recordForm.get('name').errors.required">
+              Name is required!
+            </span>
+          </span>
+        </div>
+
+        <!-- dateOfBirth form -->
+        <div class="col">
+          <label for="dateOfBirth">DOB: </label>
+          <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" formControlName="dateOfBirth" placeholder="DOB" disabled/>
+        </div>
+
+        <!-- active form -->
+        <div class="col">
+          <label for="active">Active: </label>
+          <input class="form-control" type="checkbox" id="active" name="active" formControlName="active" placeholder="Active"/>
+        </div>
+
+        <!-- update button -->
+        <div class="mt-4">
+          <button class="btn btn-dark" type="submit" (click) = "updateEnrollee(recordForm.value.id, recordForm.value)" title="Click to update enrollee">
+            Update
+          </button>
+        </div>
+
+        <!-- cancel button to reset the form -->
+        <div class="col mt-4">
+          <button class="btn btn-dark" (click)="cancelForm()" type="submit" title="Click to hide form">Cancel</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+</div>
