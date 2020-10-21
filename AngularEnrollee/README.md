@@ -6,9 +6,18 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Direction
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+-> User will end on the landing page.
+-> Navigation bar is provided to guide the user to enrollee/home page.
+  ## Enrollee page
+  -> Search box is provided on top left hand side to search an enrollee by their name and ID.
+  -> Filter is present on top right hand side to filter the enrollees by thier active/inactive status.
+  -> On enrollee page user can edit and save the enrollee by clicking on edit button.
+  -> Once edit button is pressed close and save button will be displayed to close or save the enrollee.
+  -> Enrollee will be saved only if save button is pressed.
+  -> Site is responsive, hence when it breaksdown to medium screen or further "Date of Birth" will be changed to "DOB", action tab will be removed and then enrollees will be updated by clicking on their ID, form will display on the top below search box and filter. navigation bar item will be in the pressable button.
+  -> If user search an enrollee then it is advised to clear the content of the search box, and procceed further if needed.
 
 ## Build
 
@@ -16,12 +25,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests.
 
 ## Running end-to-end tests
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
