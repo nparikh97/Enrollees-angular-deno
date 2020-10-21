@@ -8,15 +8,15 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Direction
 
--> User will end on the landing page.
--> Navigation bar is provided to guide the user to enrollee/home page.
+-> User will end on the landing page.  
+-> Navigation bar is provided to guide the user to enrollee/home page.  
   ## Enrollee page
-  -> Search box is provided on top left hand side to search an enrollee by their name and ID.
-  -> Filter is present on top right hand side to filter the enrollees by thier active/inactive status.
-  -> On enrollee page user can edit and save the enrollee by clicking on edit button.
-  -> Once edit button is pressed close and save button will be displayed to close or save the enrollee.
-  -> Enrollee will be saved only if save button is pressed.
-  -> Site is responsive, hence when it breaksdown to medium screen or further "Date of Birth" will be changed to "DOB", action tab will be removed and then enrollees will be updated by clicking on their ID, form will display on the top below search box and filter. navigation bar item will be in the pressable button.
+  -> Search box is provided on top left hand side to search an enrollee by their name and ID.  
+  -> Filter is present on top right hand side to filter the enrollees by thier active/inactive status.  
+  -> On enrollee page user can edit and save the enrollee by clicking on edit button.  
+  -> Once edit button is pressed close and save button will be displayed to close or save the enrollee.  
+  -> Enrollee will be saved only if save button is pressed.  
+  -> Site is responsive, hence when it breaksdown to medium screen or further "Date of Birth" will be changed to "DOB", action tab will be removed and then enrollees will be updated by clicking on their ID, form will display on the top below search box and filter. navigation bar item will be in the pressable button.  
   -> If user search an enrollee then it is advised to clear the content of the search box, and procceed further if needed.
 
 ## Build
