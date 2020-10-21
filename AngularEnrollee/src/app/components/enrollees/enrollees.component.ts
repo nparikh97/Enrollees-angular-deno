@@ -11,6 +11,8 @@ import { EnrolleesService } from '../../services/enrollees.service';
 
 export class EnrolleesComponent implements OnInit {
 
+/* **************************************Defining all variable******************************* */
+
   enrollees: Enrollee[]; // enrollees variable to store enrollees
   recordForm: FormGroup; // variable to build, get, and set the value of form
   showFormDiv = false; // to display form
@@ -20,6 +22,8 @@ export class EnrolleesComponent implements OnInit {
   showEditButton = true;
   showXButton = false;
 
+  // variable for search function
+  input: any;
 
   // variables for sorting
   key = 'ID';
@@ -28,6 +32,15 @@ export class EnrolleesComponent implements OnInit {
   // pagination variable
   totalRecords: number;
   page = 1;
+
+  // active function variable
+  allowParticuarEnrollee = true;
+  members: Enrollee[];
+  activeValue = '';
+  assignBooleanValueToActive: boolean;
+  paginationToShow = false;
+
+  /* **************************************Constructor******************************* */
 
   constructor(
     private enrolleeService: EnrolleesService,
@@ -80,7 +93,6 @@ export class EnrolleesComponent implements OnInit {
   // assigning data through put request
   // tslint:disable-next-line: typedef
   updateEnrollee(id: string, enrollee: Enrollee){
-      // this.showForm = false;
       if (enrollee.name.startsWith(' ') || enrollee.name === ''){
         if (enrollee.name === ''){
           this.EditRowID = id;
@@ -91,7 +103,6 @@ export class EnrolleesComponent implements OnInit {
         }
       }else{
         this.EditRowID = '';
-        // const foundEnrollee = this.enrollees.find((enrollee) => enrollee.id === id);
         this.enrolleeService.updateEnrollee(enrollee.id, enrollee).
         subscribe (res => {
           if (!!res && res.status){
@@ -119,29 +130,58 @@ export class EnrolleesComponent implements OnInit {
     }
     return data;
   }
-
+  // sorts ID and Name
   // tslint:disable-next-line: typedef
   sort(key: string){
     this.key = key;
     this.reverse = !this.reverse;
   }
 
+  // allows inline editing disables edit button and enable cancel button
+  // tslint:disable-next-line: typedef
   edit(val){
     this.EditRowID = val;
     this.showEditButton = false;
     this.showXButton = true;
   }
+
+  // close inline editing enables edit button and disables cancel button
+  // tslint:disable-next-line: typedef
   close(){
     this.showEditButton = true;
     this.showXButton = false;
     this.EditRowID = '';
   }
 
-  // printStatus(data: boolean){
-  //   if (data === true){
-  //     return '<img style="color:red;" src="../../../assets/camera_test.png" alt="active-icon"> Active';
-  //   }else if (data === false ){
-  //     return '<img class="iconImg" src="../../../assets/cross-script.png" alt="active-icon" title="Inactive"> Inactive';
-  //   }
-  // }
+  // search an enrollee by name or ID
+  // tslint:disable-next-line: typedef
+  search(){
+    this.allowParticuarEnrollee = true;
+    if (this.input === ''){
+      this.ngOnInit();
+    }else{
+      this.enrollees = this.enrollees.filter(enrollees => {
+        const value = (enrollees.id.match(this.input)) || (enrollees.name.toLocaleLowerCase().match(this.input.toLocaleLowerCase()));
+        return value;
+      });
+    }
+  }
+
+  // displays all members, active members, inactive members when been chosen by user through select tag
+  // tslint:disable-next-line: typedef
+  activeMembers(){
+    this.activeValue = ((document.getElementById('activeMember') as HTMLInputElement).value);
+    if (this.activeValue === 'Enrollees'){
+      this.allowParticuarEnrollee = true;
+    }else if (this.activeValue === 'Inactive'){
+      this.assignBooleanValueToActive = false;
+      this.members = this.enrollees.filter(enrollee => this.assignBooleanValueToActive === enrollee.active);
+      this.allowParticuarEnrollee = false;
+    }
+    else if (this.activeValue === 'Active'){
+      this.assignBooleanValueToActive = true;
+      this.members = this.enrollees.filter(enrollee => this.assignBooleanValueToActive === enrollee.active);
+      this.allowParticuarEnrollee = false;
+    }
+  }
 }

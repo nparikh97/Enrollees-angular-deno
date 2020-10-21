@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { SearchEnrolleeComponent } from './search-enrollee.component';
 
@@ -8,7 +11,13 @@ describe('SearchEnrolleeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchEnrolleeComponent ]
+      declarations: [ SearchEnrolleeComponent ],
+      imports:[
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxPaginationModule
+      ]
     })
     .compileComponents();
   });
@@ -19,7 +28,7 @@ describe('SearchEnrolleeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
 });

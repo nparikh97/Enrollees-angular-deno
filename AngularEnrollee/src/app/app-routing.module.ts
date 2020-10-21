@@ -8,8 +8,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'enrollee', component: EnrolleesComponent},
   {path: 'search', component: SearchEnrolleeComponent},
-  // {path: 'enrollee/:id', component: SearchEnrolleeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'} // redirecting back to home
+  {path: '', redirectTo: '/enrollee', pathMatch: 'full'} // redirecting back to home
 ];
 
 @NgModule({

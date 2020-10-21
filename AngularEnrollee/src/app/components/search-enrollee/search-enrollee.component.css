@@ -1,3 +1,24 @@
+/* styling by tags */
+a{
+  text-decoration: none;
+}
+
+/* styling through IDs */
+#active.form-control{
+  width: 10%;
+  margin-left: 19px;
+}
+#activeMember{
+
+  height: 33.99074px;
+  width: 86.99074px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 8px;
+  padding-top: 3px;
+}
+
+/* styling through classes */
 .changeCursorToPointer{
   cursor: pointer;
 }
@@ -14,15 +35,8 @@
 .mt-4{
   margin-top: 2rem!important;
 }
-#active.form-control{
-  width: 10%;
-  margin-left: 19px;
-}
 .has-error{
   border: red;
-}
-a{
-  text-decoration: none;
 }
 .btn-outline-success {
   color: #66ef85;
@@ -37,13 +51,4 @@ a{
   width: 208px;
   margin-left: 15px;
 }
-#activeMember{
 
-  height: 33.99074px;
-  width: 86.99074px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-bottom: 8px;
-  padding-top: 3px;
-
-}

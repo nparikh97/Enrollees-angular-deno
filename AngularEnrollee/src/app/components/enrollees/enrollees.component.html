@@ -1,69 +1,82 @@
 <!-- link to css file -->
 <link rel="stylesheet" href="./enrollees.component.css">
+
+<!-- CDN link to fontAwesome -->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 <!-- Form that shows on the top of table to update an enrollee (ID and DOB is set disabled)  -->
  <div class="p-5">
 
+   <!-- Search-box to find name -->
+  <br>
+  <input class="form-control inline" type="text" name="input" [(ngModel)]="input" (ngModelChange)="search()" placeholder="Search by name or ID">
 
+    <!-- select tag with options -->
+    <select class="browser-default custom-select float-right" id="activeMember" name="status" (click)="activeMembers()">
+      <option value="Enrollees">All Enrollees</option>
+      <option value="Active">Active Enrollees</option>
+      <option value="Inactive">Inactive Enrollees</option>
+    </select>
 
-<div class="mt-1 p-3" *ngIf="showFormDiv">
-  <form [formGroup]= "recordForm" (ngSubmit)="submitEnrollee(recordForm.value.id,recordForm.value.name,recordForm.value.active)">
-    <div class="row form-group">
+  <!-- Form that activates on small screen -->
+  <div class="mt-1 p-3" *ngIf="showFormDiv">
+    <form [formGroup]= "recordForm" (ngSubmit)="submitEnrollee(recordForm.value.id,recordForm.value.name,recordForm.value.active)">
+      <div class="row form-group">
 
-      <!-- ID form -->
-      <div class="col col-sm-6">
-        <label for="id">ID: </label>
-        <input class="form-control" type="text" id="id" name="id" formControlName="id" placeholder="Id" disabled/>
-      </div>
-
-      <!-- Name form -->
+        <!-- ID form -->
         <div class="col col-sm-6">
-        <label for="name">Name: </label>
-        <input class="form-control" type="text" id="name" name="name" formControlName="name" placeholder="Name" required [ngClass]="{'is-invalid': recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)}">
-        <!-- validating name form -->
-        <span style="color: red;" *ngIf="recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)">
-          <span *ngIf= "recordForm.get('name').errors.required">
-            <small>Name is required!</small>
+          <label for="id">ID: </label>
+          <input class="form-control" type="text" id="id" name="id" formControlName="id" placeholder="Id" disabled/>
+        </div>
+
+        <!-- Name form -->
+          <div class="col col-sm-6">
+          <label for="name">Name: </label>
+          <input class="form-control" type="text" id="name" name="name" formControlName="name" placeholder="Name" required [ngClass]="{'is-invalid': recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)}">
+          <!-- validating name form -->
+          <span style="color: red;" *ngIf="recordForm.get('name').errors && (recordForm.get('name').touched || recordForm.get('name').dirty)">
+            <span *ngIf= "recordForm.get('name').errors.required">
+              <small>Name is required!</small>
+            </span>
           </span>
-        </span>
-      </div>
+        </div>
 
-      <!-- dateOfBirth form -->
-      <div class="col col-sm-6">
-        <label for="dateOfBirth">DOB: </label>
-        <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" formControlName="dateOfBirth" placeholder="DOB" disabled/>
-      </div>
+        <!-- dateOfBirth form -->
+        <div class="col col-sm-6">
+          <label for="dateOfBirth">DOB: </label>
+          <input class="form-control" type="text" id="dateOfBirth" name="dateOfBirth" formControlName="dateOfBirth" placeholder="DOB" disabled/>
+        </div>
 
-      <!-- active form -->
-      <div class="col col-sm-6">
-        <label class="setMargin" for="active">Active: </label>
-        <input class="form-control" type="checkbox" id="active" name="active" formControlName="active" placeholder="Active"/>
-      </div>
+        <!-- active form -->
+        <div class="col col-sm-6">
+          <label class="setMargin" for="active">Active: </label>
+          <input class="form-control" type="checkbox" id="active" name="active" formControlName="active" placeholder="Active"/>
+        </div>
 
-      <!-- update button -->
-      <div class=" mt-4">
-        <button class="btn btn-dark setUpdateButtonMaginOnSmallScreen" type="submit" (click) = "updateEnrollee(recordForm.value.id, recordForm.value)" title="Click to update enrolle">
-          Update
-        </button>
-      </div>
+        <!-- update button -->
+        <div class="mt-4">
+          <button class="btn btn-dark setUpdateButtonMaginOnSmallScreen" type="submit" (click) = "updateEnrollee(recordForm.value.id, recordForm.value)" title="Click to update enrolle">
+            Update
+          </button>
+        </div>
 
-      <!-- cancel button -->
-      <div class="col mt-4">
-        <button class="btn btn-dark" (click) = "cancelButton()" type="submit" title="Click to hide form">
-          Cancel
-        </button>
-      </div>
+        <!-- cancel button -->
+        <div class="col mt-4">
+          <button class="btn btn-dark" (click) = "cancelButton()" type="submit" title="Click to hide form">
+            Cancel
+          </button>
+        </div>
 
-    </div>
-  </form>
-</div>
+      </div>
+    </form>
+  </div>
+
   <!-- Looping through data and organizing in the form of table (used bootstrap) -->
   <table class="table mt-3 table-hover p-5" summary="It discribes an enrollees details, like ID, name, date of birth, and active status">
     <thead class="thead-dark">
       <tr>
-        <th>ID <i (click)="sort('id')" class="fas fa-sort"></i></th>
-        <th>Name <i (click)="sort('name')" class="fas fa-sort"></i></th>
+        <th>ID <i (click)="sort('id')" class="fas fa-sort"></i></th> <!--sort(), sorts id-->
+        <th>Name <i (click)="sort('name')" class="fas fa-sort"></i></th> <!--sort(), sorts name-->
 
         <th class="dob">Date of Birth</th>
         <th class="activeOnSmallScreenSize">DOB</th>
@@ -71,18 +84,18 @@
         <th>Status</th>
         <th class="removeActionColumnAtSmallScreen">Action</th>
       </tr>
-      </thead>
+    </thead>
 
-      <tbody>
-      <tr *ngFor = "let E of enrollees | orderBy : key : reverse | paginate: { id: 'listing_pagination',
-                                                                   itemsPerPage: 7,
-                                                                   currentPage: page,
-                                                                   totalItems: totalRecords }">
+    <tbody *ngIf="allowParticuarEnrollee; else activeMemberForm">  <!-- if allowParticularEnrollee is true than activates table else displays other table-->
+      <tr *ngFor="let E of enrollees | orderBy : key : reverse | paginate: { id: 'listing_pagination',
+                                                                 itemsPerPage: 7,
+                                                                 currentPage: page,
+                                                                 totalItems: totalRecords }">
         <!-- Enrollee ID -->
-        <td class="textColor displayTextOnLargeScreen" title="Enrollee ID">{{ E.id }}</td>
+        <td class="textColor displayTextOnLargeScreen" title="Enrollee ID">{{ E.id }}</td> <!-- Displays text on large screen and hide link -->
 
         <td class="textColor displayAlinkOnSmallScreen" title="Enrollee ID">
-          <a class="nameClass" class="changeCursorToPointer" (click)="pullEnrolleeAndPlaceItInForm(E)">
+          <a class="nameClass" class="changeCursorToPointer" (click)="pullEnrolleeAndPlaceItInForm(E)"> <!-- Displays link on small screen and hide text -->
             {{ E.id }}
           </a>
         </td>
@@ -92,6 +105,14 @@
           <input class="form-control" type="text" [(ngModel)]="E.name" required placeholder="{{E.name}}">
         </td>
         <td title="{{E.name}}" *ngIf="E.id !== EditRowID">{{ E.name | titlecase }}</td>
+
+        <ng-template #nameForm>
+          <td>
+            <form #nameForm="ngForm">
+              <input type="text" name="name" [ngModel]="E.name">
+            </form>
+          </td>
+        </ng-template>
 
         <!-- Enrollee DOB -->
         <td style="padding-left: 1.7%" *ngIf="E.dateOfBirth; else notProvided" title="{{E.dateOfBirth}}">
@@ -104,8 +125,8 @@
         <!-- Enrollee Active status -->
         <td *ngIf="E.id === EditRowID" style="padding-top: 0.9%;">
           <select class="form-control removeActionColumnAtSmallScreen" name="status" [(ngModel)]="E.active">
-            <option [ngValue]="true"><img src="../../../assets/camera_test.png" alt="active-icon">Active</option>
-            <option [ngValue]="false"><img src="../../../assets/cross-script.png" alt="Inactive-icon">Inactive</option>
+            <option [ngValue]="true">Active</option>
+            <option [ngValue]="false">Inactive</option>
           </select>
         </td>
 
@@ -123,23 +144,88 @@
           </ng-template>
         </td>
 
+        <!-- Action Icons -->
         <td class="removeActionColumnAtSmallScreen">
-          <i *ngIf="E.id !== EditRowID" class="fas fa-user-edit customizedIcon" (click)="edit(E.id)" title="click to edit"></i>
+          <i *ngIf="E.id !== EditRowID" class="fas fa-user-edit customizedIcon" (click)="edit(E.id)" style="margin-left: 15%;" title="click to edit"></i>
           <i *ngIf="E.id === EditRowID" (click)=close() class="fas fa-times customizedIcon xIcon" title="click to close"></i>
-          <i class="far fa-save customizedIcon" (click) = "updateEnrollee(E.id, E)" style="margin-left: 7%;" title="click to save"></i>
+          <i *ngIf="E.id === EditRowID" class="far fa-save customizedIcon" (click) = "updateEnrollee(E.id, E)" style="margin-left: 7%;" title="click to save"></i>
         </td>
+      </tr>
+    </tbody>
+
+    <!-- If allowParticuarEnrollee is false then activeMemberForm will activate -->
+    <ng-template #activeMemberForm>
+      <tbody>
+        <tr *ngFor="let member of members">
+
+        <!-- Enrollee ID -->
+        <td class="textColor displayTextOnLargeScreen" title="Enrollee ID">{{ member.id }}</td>
+
+        <td class="textColor displayAlinkOnSmallScreen" title="Enrollee ID">
+          <a class="nameClass" class="changeCursorToPointer" (click)="pullEnrolleeAndPlaceItInForm(member)">
+            {{ member.id }}
+          </a>
+        </td>
+
+        <!-- Enrollee name -->
+        <td *ngIf="member.id === EditRowID">
+          <input class="form-control" type="text" [(ngModel)]="member.name" required placeholder="{{member.name}}">
+        </td>
+        <td title="{{member.name}}" *ngIf="member.id !== EditRowID">{{ member.name | titlecase }}</td>
 
         <ng-template #nameForm>
           <td>
             <form #nameForm="ngForm">
-              <input type="text" name="name" [ngModel]="E.name">
+              <input type="text" name="name" [ngModel]="member.name">
             </form>
           </td>
         </ng-template>
-      </tr>
+
+        <!-- Enrollee DOB -->
+        <td style="padding-left: 1.7%" *ngIf="member.dateOfBirth; else notProvided" title="{{member.dateOfBirth}}">
+          {{ formatedDOB(member.dateOfBirth) }}
+        </td>
+        <ng-template #notProvided>
+          <td class="NAStyling">N/A</td>
+        </ng-template>
+
+        <ng-template #notProvided>
+          <td style="padding-left: 48px; color:#caac4a;">N/A</td>
+        </ng-template>
+
+        <!-- Enrollee Active status -->
+        <td *ngIf="member.id === EditRowID" style="padding-top: 0.9%;">
+          <select class="form-control removeActionColumnAtSmallScreen" name="status" [(ngModel)]="member.active">
+            <option [ngValue]="true">Active</option>
+            <option [ngValue]="false">Inactive</option>
+          </select>
+        </td>
+
+        <td *ngIf="member.id !== EditRowID " >
+          <h6 class="removeTextOnSmallScreen" *ngIf="member.active; else notActive" style="color:green">
+            <img class="iconImg" src="../../../assets/camera_test.png" alt="active-icon">
+            <strong class="hideTextAtSmallScreen">Active</strong>
+          </h6>
+
+          <ng-template #notActive>
+            <h6 style="color:red">
+              <img class="iconImg" src="../../../assets/cross-script.png" alt="active-icon" title="Inactive">
+              <strong class="hideTextAtSmallScreen">Inactive</strong>
+            </h6>
+          </ng-template>
+        </td>
+
+        <td class="removeActionColumnAtSmallScreen">
+          <i *ngIf="member.id !== EditRowID" class="fas fa-user-edit customizedIcon" (click)="edit(member.id)" style="margin-left: 15%;" title="click to edit"></i>
+          <i *ngIf="member.id === EditRowID" (click)=close() class="fas fa-times customizedIcon xIcon" title="click to close"></i>
+          <i *ngIf="member.id === EditRowID" class="far fa-save customizedIcon" (click) = "updateEnrollee(member.id, member)" style="margin-left: 7%;" title="click to save"></i>
+        </td>
+      </tbody>
+    </ng-template>
+
   </table>
 
-  <pagination-controls class="text-center" id="listing_pagination" maxSize="5" directionLinks="true" responsive="true" (pageChange)="page = $event" style="
+  <!-- pagination -->
+  <pagination-controls *ngIf="!input && allowParticuarEnrollee" class="text-center" id="listing_pagination" maxSize="5" directionLinks="true" responsive="true" (pageChange)="page = $event" style="
   padding-left: 0px;"></pagination-controls>
-
 </div>
