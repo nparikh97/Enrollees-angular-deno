@@ -3,11 +3,9 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
 
 ## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
+After cloning the file user is requested to run the server first by opening the command prompt and cd into the server folder by `cd server` and after that executing this cmd `deno run --allow-net server.ts`. After succesfull execution, It will run the server on port `http://localhost:8080/enrollees` with a message in blue in command prompt.  
+Once server is started than cd into the AngularEnrollee folder and execute `ng serve`. it will serve the application on `http://localhost:4200/`. The app will automatically reload if you change any of the source files.  
 ## Direction
-
 -> User will end on the landing page.  
 -> Navigation bar is provided to guide the user to enrollee/home page.  
   ## Enrollee page
