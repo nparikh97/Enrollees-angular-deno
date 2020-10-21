@@ -9,7 +9,7 @@ import * as Colors from 'https://deno.land/std/fmt/colors.ts';
 
 import { enrollees, IdentifiedEnrollee } from './enrollees.ts';
 
-/**
+/***
  * An enrollee service that provides endpoints to get all enrollees, get a specific enrollee, and update an enrollee
  */
 export class EnrolleeService {
